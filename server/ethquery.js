@@ -2,7 +2,7 @@ require('dotenv').config();
 const ethers = require('ethers');
 const { abi } = require('./abi');
 
-const provider = new ethers.getDefaultProvider('ropsten', { 'infura': `${INF_ID}` });
+const provider = new ethers.getDefaultProvider('ropsten', { 'infura': `${process.env.INF_ID}` });
 const address = `${process.env.CONTRACT_ADDRESS}`;
 
 const kyContract = new ethers.Contract( address, abi, provider );
