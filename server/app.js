@@ -10,6 +10,19 @@ const views = require('koa-views')
 const server = new koa()
 const router = new Router()
 
+// Authentication
+// 3Box
+const authenticate = require('./authentication')
+// Storage
+// Textile
+const persist = require('./textileRoute')
+// Contract interaction
+const readContract = require('./ethquery')
+const writeContract = require('./ethwrites')
+
+
+
+
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 
 // server.use(serve('.'))
@@ -58,8 +71,6 @@ server.listen(PORT, 'localhost', ()=> console.log('Server started!'));
 
 /*
 
-const Router = require('koa-router')
-const router = new Router()
 const Task = require('../models/Task')
 
 router.get('/api/tasks', async ctx => {

@@ -1,14 +1,30 @@
 const Box = require('3box');
 const { Libp2pCryptoIdentity } = require('@textile/threads-core');
 
-async function sign(identity) {
+
+const getAddressFromMetaMask = async() => {
+    if (typeof window.ethereum == "undefined") {
+      this.setState({ needToAWeb3Browser: true })
+    } else {
+      window.ethereum.autoRefreshOnNetworkChange = false; 
+      //silences warning about no autofresh on network change
+      const accounts = await window.ethereum.enable();
+      this.setState({ accounts })
+    }
+}
+const componentDidMount = async () => {
+    await this.getAddressFromMetaMask()
+    if (this.state.accounts) {    }
+  }
+
+const sign = async(identity) => {
     const challenge = Buffer.from('Sign this string');
     const credentials = identity.sign(challenge);
 
     return credentials;
 }
 
-getIdentity = async () => {
+const getIdentity = async () => {
     const box = await Box.create((window).ethereum);
     const [ address ] = await window.ethereum.enable();
     await box.auth([], { address });
@@ -29,3 +45,10 @@ getIdentity = async () => {
         return identity;
     };
 };
+
+module.exports = {
+    getAddressFromMetaMask,
+    componentDidMount,
+    sign,
+    getIdentity
+}
