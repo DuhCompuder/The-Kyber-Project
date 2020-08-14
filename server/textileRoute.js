@@ -1,14 +1,12 @@
-const { UserAuth } = require('@textile/hub');
-import { Client, KeyInfo } from '@textile/hub'
-import { Buckets, UserAuth } from '@textile/hub'
-import glob from 'glob'
+const { UserAuth, Client, KeyInfo, Buckets } = require('@textile/hub');
+//const glob from 'glob'
 
-const UserAuth = {
-  msg: '<api msg>',
-  sig: '<api sig>',
-  token: '<user msg>',
-  key: '<api key>',
-}
+// const UserAuth = {
+//   msg: '<api msg>',
+//   sig: '<api sig>',
+//   token: '<user msg>',
+//   key: '<api key>',
+// }
 
 //Dev Auth
 async function startDev () {

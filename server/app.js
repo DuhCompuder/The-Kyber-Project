@@ -12,13 +12,13 @@ const router = new Router()
 
 // Authentication
 // 3Box
-const authenticate = require('./authentication')
+// const authenticate = require('./authentication')
 // Storage
 // Textile
-const persist = require('./textileRoute')
+// const persist = require('./textileRoute')
 // Contract interaction
-const readContract = require('./ethquery')
-const writeContract = require('./ethwrites')
+//const readContract = require('./ethquery')
+//const writeContract = require('./ethwrites')
 
 
 

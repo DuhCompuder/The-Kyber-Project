@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "3box": "^1.21.0",
     "@textile/hub": "^0.5.2",
     "dotenv": "^8.2.0",
     "emittery": "^0.7.1",
