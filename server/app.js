@@ -1,23 +1,56 @@
-require('dotenv').config();
-const koa = require('koa');
-const Router = require('koa-router');
-const json = require('koa-json');
-const serve = require('koa-static');
+require('dotenv').config()
+const koa = require('koa')
+const Router = require('koa-router')
+const json = require('koa-json')
+const serve = require('koa-static')
+const render = require('koa-ejs')
+const path = require('path')
+const views = require('koa-views')
 
-const server = new koa();
-const route = new Router();
+const server = new koa()
+const router = new Router()
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 
-server.use(serve('.'));
-server.use(serve('./qRoutes'));
+// server.use(serve('.'))
+server.use(serve('./views'))
+server.use(serve('./public/css'))
+//server.use(serve('./public/img'))
 
-server.use(json());
+// server.use(json())
 
-route.get('/', (ctx, next) => {
-});
+server.use(async (ctx, next) => {
+    try {
+        await next()
+    } catch (err) {
+        console.log(err.status)
+        ctx.status = err.status || 500;
+        ctx.body = err.message;
+    }
+})
 
-server.use(route.routes());
+server.use(views('./views', { map: { html: 'nunjucks' }}))
+
+// render(server, {
+//     root: path.join(__dirname, 'views'),
+//     layout: 'welcome',
+//     viewExt: 'html',
+//     cache: false,
+//     debug: true
+// })
+
+// router.get('/', (ctx) => {
+//     ctx.sendFile(__dirname + '/views/welcome.html')
+//     //ctx.body = "Welcome to tsdsdhe Jungle.";
+// })
+
+router.get('/', (ctx) => {
+    return ctx.render('./welcome')
+    //ctx.throw('Test Error Message', 500)
+})
+
+server.use(router.routes())
+    .use(router.allowedMethods())
 
 server.listen(PORT, 'localhost', ()=> console.log('Server started!'));
 
